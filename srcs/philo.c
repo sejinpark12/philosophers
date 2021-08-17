@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 16:24:19 by sejpark           #+#    #+#             */
-/*   Updated: 2021/08/17 11:46:29 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/08/17 15:31:48 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void *philosopher(void *arg)
 		printf("%ld %d is sleeping\n", time_stamp, philo_idx);
         pthread_mutex_unlock(&philo->thds->msg_mutex);
         my_sleep(philo->opts->time_sleep);
-        my_sleep(2000);
+        my_sleep(1000);
         // thinking
         pthread_mutex_lock(&philo->thds->msg_mutex);
         if (philo->opts->finish)
@@ -187,7 +187,7 @@ void *oddphilosopher(void *arg)
 		printf("%ld %d is sleeping\n", time_stamp, philo_idx);
         pthread_mutex_unlock(&philo->thds->msg_mutex);
         my_sleep(philo->opts->time_sleep);
-        my_sleep(2000);
+        my_sleep(1000);
         // thinking
         pthread_mutex_lock(&philo->thds->msg_mutex);
         if (philo->opts->finish)
