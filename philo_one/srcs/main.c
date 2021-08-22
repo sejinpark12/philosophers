@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 16:24:07 by sejpark           #+#    #+#             */
-/*   Updated: 2021/08/17 11:41:17 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/08/22 16:10:50 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,31 +17,36 @@ int set_opt_data(int argc, char **argv, t_options *opts)
 {
     if (argc < 5 || argc > 6)
     {
-        printf("invalid parameters\n");
+        write(2, "invalid parameters\n", 19);
+        //printf("invalid parameters\n");
         return (1);
     }
-    opts->num_philo = ft_atoi(argv[1]);
+    opts->num_philo = ft_atoui(argv[1]);
     if (opts->num_philo == 0)
     {
-        printf("invalid parameters\n");
+        write(2, "invalid parameters\n", 19);
+        //printf("invalid parameters\n");
         return (1);
     }
     opts->time_die = ft_atoui(argv[2]) * 1000;
     if (opts->time_die == 0)
     {
-        printf("invalid parameters\n");
+        write(2, "invalid parameters\n", 19);
+        //printf("invalid parameters\n");
         return (1);
     }
     opts->time_eat = ft_atoui(argv[3]) * 1000;
     if (opts->time_eat == 0)
     {
-        printf("invalid parameters\n");
+        write(2, "invalid parameters\n", 19);
+        //printf("invalid parameters\n");
         return (1);
     }
     opts->time_sleep = ft_atoui(argv[4]) * 1000;
-    if (opts->time_eat == 0)
+    if (opts->time_sleep == 0)
     {
-        printf("invalid parameters\n");
+        write(2, "invalid parameters\n", 19);
+        //printf("invalid parameters\n");
         return (1);
     }
     opts->finish = 0;
@@ -50,7 +55,8 @@ int set_opt_data(int argc, char **argv, t_options *opts)
         opts->num_each_philo_eat = ft_atoui(argv[5]);
         if (opts->num_each_philo_eat == 0)
         {
-            printf("invalid parameters\n");
+            write(2, "invalid parameters\n", 19);
+            //printf("invalid parameters\n");
             return (1);
         }
     }
@@ -65,7 +71,8 @@ int set_philos(t_data *data)
     data->philos = (t_philo*)malloc(sizeof(t_data) * data->opts.num_philo);
     if (data->philos == NULL)
     {
-        printf("set_t_da function error\n");
+        write(2, "invalid parameters\n", 19);
+        //printf("set_t_da function error\n");
         return (1);
     }
     while (i < data->opts.num_philo)
@@ -85,15 +92,15 @@ int main(int argc, char **argv)
     t_data  data;
 
     if (set_opt_data(argc, argv, &data.opts))
-        return (0);
+        return (1);
     if (set_philos(&data))
-        return (0);
+        return (1);
     if (alloc_threads(&data))
-        return (0);
+        return (1);
     if (init_mutex(&data))
-        return (0);
+        return (1);
     if (create_threads(&data))
-        return (0);
+        return (1);
     finish_threads(&data.thds, data.opts.num_philo);
 	return (0);
 }

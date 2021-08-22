@@ -6,7 +6,7 @@
 #    By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/21 14:58:35 by sejpark           #+#    #+#              #
-#    Updated: 2021/08/15 00:14:29 by sejpark          ###   ########.fr        #
+#    Updated: 2021/08/22 15:12:48 by sejpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 CC				= gcc -g -fsanitize=address
 RM				= rm -rf
 CFLAGS			= -Wall -Wextra -Werror
-NAME			= philo
+NAME			= philo_one
 
 SRC_DIR			= srcs
 SRC				= srcs/philo.c srcs/thread_manager.c srcs/main.c \
