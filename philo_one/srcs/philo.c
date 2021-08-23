@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 16:24:19 by sejpark           #+#    #+#             */
-/*   Updated: 2021/08/17 15:31:48 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/08/23 14:10:32 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,18 @@ void *philosopher(void *arg)
         time_stamp = cal_time(philo->start_time);
         philo->status = 3;
 		printf("%ld %d is eating\n", time_stamp, philo_idx);
+        if (philo->eating_cnt < philo->opts->num_each_philo_eat)
+        {
+            philo->eating_cnt++;
+            //printf("$$$$$$$$$$$$$$$$$$ philo->eating = %d, num_each_philo_eat = %d\n", philo->eating_cnt, philo->opts->num_each_philo_eat);
+            if (philo->eating_cnt == philo->opts->num_each_philo_eat)
+            {
+                pthread_mutex_lock(&philo->thds->complete_mutex);
+                philo->thds->complete_philo_cnt++;
+                //printf("$$$$$$$$$$$$$$$$$$ complete_philo_cnt = %d\n", philo->thds->complete_philo_cnt);
+                pthread_mutex_unlock(&philo->thds->complete_mutex);
+            }
+        }
         philo->last_eat_time = tmp_last_eat_time;
         pthread_mutex_unlock(&philo->thds->msg_mutex);
         my_sleep(philo->opts->time_eat);
@@ -169,6 +181,18 @@ void *oddphilosopher(void *arg)
         time_stamp = cal_time(philo->start_time);
         philo->status = 3;
 		printf("%ld %d is eating\n", time_stamp, philo_idx);
+        if (philo->eating_cnt < philo->opts->num_each_philo_eat)
+        {
+            philo->eating_cnt++;
+            //printf("$$$$$$$$$$$$$$$$$$ philo->eating = %d, num_each_philo_eat = %d\n", philo->eating_cnt, philo->opts->num_each_philo_eat);
+            if (philo->eating_cnt == philo->opts->num_each_philo_eat)
+            {
+                pthread_mutex_lock(&philo->thds->complete_mutex);
+                philo->thds->complete_philo_cnt++;
+                //printf("$$$$$$$$$$$$$$$$$$ complete_philo_cnt = %d\n", philo->thds->complete_philo_cnt);
+                pthread_mutex_unlock(&philo->thds->complete_mutex);
+            }
+        }
         philo->last_eat_time = tmp_last_eat_time;
         pthread_mutex_unlock(&philo->thds->msg_mutex);
         my_sleep(philo->opts->time_eat);

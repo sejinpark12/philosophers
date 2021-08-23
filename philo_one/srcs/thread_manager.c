@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 15:46:18 by sejpark           #+#    #+#             */
-/*   Updated: 2021/08/17 01:33:49 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/08/23 14:07:04 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void free_threads(t_threads *thds)
 int memory_alloc_err(t_threads *thds)
 {
     free_threads(thds);
-    printf("memory allocation error\n");
+    write(2, "memory allocation error\n", 24);
+    //printf("memory allocation error\n");
     return (1);
 }
 
@@ -60,7 +61,8 @@ int init_mutex(t_data *data)
 	    if (pthread_mutex_init(&(data->thds.mutexes[i]), NULL))
         {
             free_threads(&data->thds);
-            printf("pthread_mutex_init error\n");
+            write(2, "pthread_mutex_init error\n", 25);
+            //printf("pthread_mutex_init error\n");
             return (1);
         }
         i++;
@@ -69,9 +71,18 @@ int init_mutex(t_data *data)
     if (pthread_mutex_init(&data->thds.msg_mutex, NULL))
     {
         free_threads(&data->thds);
-        printf("pthread_mutex_init error\n");
+        write(2, "pthread_mutex_init error\n", 25);
+        //printf("pthread_mutex_init error\n");
         return (1);
     }
+    if (pthread_mutex_init(&data->thds.complete_mutex, NULL))
+    {
+        free_threads(&data->thds);
+        write(2, "pthread_mutex_init error\n", 25);
+        //printf("pthread_mutex_init error\n");
+        return (1);
+    }
+    data->thds.complete_philo_cnt = 0;
     return (0);
 }
 
@@ -95,19 +106,22 @@ int create_threads(t_data *data)
 		if ((i + 1) % 2 && pthread_create(tid, NULL, oddphilosopher, (void*)(&data->philos[i])))
         {
             free_threads(thds);
-            printf("pthread_create error\n");
+            write(2, "pthread_create error\n", 21);
+            //printf("pthread_create error\n");
             return (1);
         }
 		if ((i + 1) % 2 == 0 && pthread_create(tid, NULL, philosopher, (void*)(&data->philos[i])))
         {
             free_threads(thds);
-            printf("pthread_create error\n");
+            write(2, "pthread_create error\n", 21);
+            //printf("pthread_create error\n");
             return (1);
         }
         if (pthread_create(observ_tid, NULL, observer, (void*)(&data->philos[i])))
         {
             free_threads(thds);
-            printf("pthread_create error\n");
+            write(2, "pthread_create error\n", 21);
+            //printf("pthread_create error\n");
             return (1);
         }
         i++;
@@ -128,5 +142,6 @@ void finish_threads(t_threads *thds, int num_philo)
         i++;
     }
     pthread_mutex_destroy(&(thds->msg_mutex));
+    pthread_mutex_destroy(&(thds->complete_mutex));
     free_threads(thds);
 }

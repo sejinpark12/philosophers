@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 21:26:06 by sejpark           #+#    #+#             */
-/*   Updated: 2021/08/17 01:33:24 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/08/23 14:07:54 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@ void *observer(void *arg)
         if (!philo->opts->finish && cal_time(&philo->last_eat_time) > philo->opts->time_die / 1000)
         {
             printf("%ld %d died\n", cal_time(philo->start_time), philo->philo_idx);
+            philo->opts->finish = 1;
+            pthread_mutex_unlock(&philo->thds->msg_mutex);
+            return (NULL);
+        }
+        if (!philo->opts->finish && philo->opts->num_philo == philo->thds->complete_philo_cnt)
+        {
+            printf("all philosophers ate %d times\n", philo->opts->num_each_philo_eat);
             philo->opts->finish = 1;
             pthread_mutex_unlock(&philo->thds->msg_mutex);
             return (NULL);
