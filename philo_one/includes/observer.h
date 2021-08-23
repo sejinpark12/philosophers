@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 21:26:44 by sejpark           #+#    #+#             */
-/*   Updated: 2021/08/15 17:10:27 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/08/23 17:16:55 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-void *observer(void *arg);
+void	*observer(void *arg);
 
 #endif

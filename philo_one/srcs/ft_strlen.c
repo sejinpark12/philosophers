@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.h                                          :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sejpark <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/28 16:48:46 by sejpark           #+#    #+#             */
-/*   Updated: 2021/08/23 17:16:44 by sejpark          ###   ########.fr       */
+/*   Created: 2020/07/02 09:57:36 by sejpark           #+#    #+#             */
+/*   Updated: 2021/08/23 23:02:30 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_ATOI_H
-# define FT_ATOI_H
+#include "../includes/ft_strlen.h"
 
-int				ft_atoi(const char *str);
-unsigned int	ft_atoui(const char *str);
+size_t	ft_strlen(const char *s)
+{
+	size_t	len;
 
-#endif
+	len = 0;
+	while (s[len])
+		len++;
+	return (len);
+}

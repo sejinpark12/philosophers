@@ -6,19 +6,25 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 00:13:32 by sejpark           #+#    #+#             */
-/*   Updated: 2021/08/15 00:14:06 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/08/23 23:02:06 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/utils.h"
 
-long cal_time(t_time *start_time)
+long	cal_time(t_time *start_time)
 {
-    t_time  now_time;
-    long    result;
+	t_time	now_time;
+	long	result;
 
-    gettimeofday(&now_time, NULL);
-    result = (now_time.tv_sec - start_time->tv_sec) * 1000 
-                    + (now_time.tv_usec - start_time->tv_usec) / 1000;
-    return (result);
+	gettimeofday(&now_time, NULL);
+	result = (now_time.tv_sec - start_time->tv_sec) * 1000
+		+ (now_time.tv_usec - start_time->tv_usec) / 1000;
+	return (result);
+}
+
+int	print_err(char *err_msg)
+{
+	write(2, err_msg, ft_strlen(err_msg));
+	return (1);
 }

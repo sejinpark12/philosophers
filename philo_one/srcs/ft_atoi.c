@@ -6,13 +6,13 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 16:49:49 by sejpark           #+#    #+#             */
-/*   Updated: 2021/07/28 16:55:34 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/08/23 17:15:03 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_atoi.h"
 
-int		        ft_isspace(const char c)
+int	ft_isspace(const char c)
 {
 	if ((c > 8 && c < 14) || c == 32)
 		return (1);
@@ -20,7 +20,7 @@ int		        ft_isspace(const char c)
 		return (0);
 }
 
-int             ft_isdigit(int c)
+int	ft_isdigit(int c)
 {
 	if (c > 47 && c < 58)
 		return (1);
@@ -28,11 +28,11 @@ int             ft_isdigit(int c)
 		return (0);
 }
 
-int             ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
-	int				i;
-	int				sign;
-	long			result;
+	int		i;
+	int		sign;
+	long	result;
 
 	i = 0;
 	sign = 1;
@@ -54,17 +54,18 @@ int             ft_atoi(const char *str)
 		return (-1);
 	return (result);
 }
-unsigned int    ft_atoui(const char *str)
+
+unsigned int	ft_atoui(const char *str)
 {
-	int				i;
-	long			result;
+	int		i;
+	long	result;
 
 	i = 0;
 	result = 0;
 	while (ft_isspace(str[i]))
 		i++;
-    if (str[i] == '-')
-        return (0);
+	if (str[i] == '-')
+		return (0);
 	if (str[i] == '+')
 		i++;
 	while (ft_isdigit(str[i]))

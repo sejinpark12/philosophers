@@ -6,7 +6,7 @@
 #    By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/21 14:58:35 by sejpark           #+#    #+#              #
-#    Updated: 2021/08/22 15:12:48 by sejpark          ###   ########.fr        #
+#    Updated: 2021/08/23 22:29:33 by sejpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ NAME			= philo_one
 
 SRC_DIR			= srcs
 SRC				= srcs/philo.c srcs/thread_manager.c srcs/main.c \
-                  srcs/ft_atoi.c srcs/observer.c srcs/utils.c
+                  srcs/ft_atoi.c srcs/observer.c srcs/utils.c \
+				  srcs/ft_strlen.c
 
 OBJ_DIR			= objs
 OBJ				= $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
