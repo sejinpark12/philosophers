@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 16:44:47 by sejpark           #+#    #+#             */
-/*   Updated: 2021/08/23 17:24:19 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/08/24 17:19:17 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_philo
 	int				philo_idx;
 	t_time			*start_time;
 	t_time			last_eat_time;
-	char			status;
+//	char			status;
 	int				eating_cnt;
 	t_threads		*thds;
 	t_options		*opts;
