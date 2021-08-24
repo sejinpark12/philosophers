@@ -1,83 +1,64 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   thread_manager.c                                   :+:      :+:    :+:   */
+/*   thread_manager1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 15:46:18 by sejpark           #+#    #+#             */
-/*   Updated: 2021/08/23 17:10:32 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/08/24 16:56:10 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/thread_manager.h"
 
-void	free_threads(t_threads *thds)
-{
-	free(thds->tids);
-	free(thds->observ_tids);
-	free(thds->mutexes);
-	free(thds->permits);
-}
-
-int	memory_alloc_err(t_threads *thds)
-{
-	free_threads(thds);
-	write(2, "memory allocation error\n", 24);
-	return (1);
-}
-
 int	alloc_threads(t_data *data)
 {
+	int			num_philo;
+	t_threads	*thds;
+
+	num_philo = data->opts.num_philo;
+	thds = &data->thds;
 	data->thds.tids = NULL;
 	data->thds.observ_tids = NULL;
 	data->thds.mutexes = NULL;
 	data->thds.permits = NULL;
-	data->thds.tids = (pthread_t *)malloc(sizeof(pthread_t) * data->opts.num_philo);
+	data->thds.tids = (pthread_t *)malloc(sizeof(pthread_t) * num_philo);
 	if (data->thds.tids == NULL)
-		return (memory_alloc_err(&data->thds));
-	data->thds.observ_tids = (pthread_t *)malloc(sizeof(pthread_t) * data->opts.num_philo);
+		return (thread_manager_err("memory allocation error\n", thds));
+	data->thds.observ_tids = (pthread_t *)malloc(sizeof(pthread_t) * num_philo);
 	if (data->thds.observ_tids == NULL)
-		return (memory_alloc_err(&data->thds));
-	data->thds.mutexes = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * data->opts.num_philo);
+		return (thread_manager_err("memory allocation error\n", thds));
+	data->thds.mutexes = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
+			* num_philo);
 	if (data->thds.mutexes == NULL)
-		return (memory_alloc_err(&data->thds));
-	data->thds.permits = (int *)malloc(sizeof(int) * data->opts.num_philo);
+		return (thread_manager_err("memory allocation error\n", thds));
+	data->thds.permits = (int *)malloc(sizeof(int) * num_philo);
 	if (data->thds.permits == NULL)
-		return (memory_alloc_err(&data->thds));
+		return (thread_manager_err("memory allocation error\n", thds));
 	return (0);
 }
 
 int	init_mutex(t_data *data)
 {
-	int	i;
-	int	num_philo;
+	int			i;
+	int			num_philo;
+	t_threads	*thds;
 
 	i = 0;
 	num_philo = data->opts.num_philo;
+	thds = &data->thds;
 	while (i < num_philo)
 	{
 		if (pthread_mutex_init(&(data->thds.mutexes[i]), NULL))
-		{
-			free_threads(&data->thds);
-			write(2, "pthread_mutex_init error\n", 25);
-			return (1);
-		}
+			return (thread_manager_err("pthread_mutex_init error\n", thds));
 		i++;
 	}
 	memset(data->thds.permits, 1, num_philo);
 	if (pthread_mutex_init(&data->thds.msg_mutex, NULL))
-	{
-		free_threads(&data->thds);
-		write(2, "pthread_mutex_init error\n", 25);
-		return (1);
-	}
+		return (thread_manager_err("pthread_mutex_init error\n", thds));
 	if (pthread_mutex_init(&data->thds.complete_mutex, NULL))
-	{
-		free_threads(&data->thds);
-		write(2, "pthread_mutex_init error\n", 25);
-		return (1);
-	}
+		return (thread_manager_err("pthread_mutex_init error\n", thds));
 	data->thds.complete_philo_cnt = 0;
 	return (0);
 }
@@ -88,7 +69,7 @@ int	create_threads(t_data *data)
 	int			num_philo;
 	t_threads	*thds;
 	pthread_t	*tid;
-	pthread_t	*observ_tid;
+	pthread_t	*ob_tid;
 
 	i = 0;
 	num_philo = data->opts.num_philo;
@@ -97,26 +78,12 @@ int	create_threads(t_data *data)
 	while (i < num_philo)
 	{
 		tid = &thds->tids[i];
-		observ_tid = &thds->observ_tids[i];
+		ob_tid = &thds->observ_tids[i];
 		data->philos[i].last_eat_time = data->start_time;
-		if ((i + 1) % 2 && pthread_create(tid, NULL, oddphilosopher, (void *)(&data->philos[i])))
-		{
-			free_threads(thds);
-			write(2, "pthread_create error\n", 21);
-			return (1);
-		}
-		if ((i + 1) % 2 == 0 && pthread_create(tid, NULL, philosopher, (void *)(&data->philos[i])))
-		{
-			free_threads(thds);
-			write(2, "pthread_create error\n", 21);
-			return (1);
-		}
-		if (pthread_create(observ_tid, NULL, observer, (void *)(&data->philos[i])))
-		{
-			free_threads(thds);
-			write(2, "pthread_create error\n", 21);
-			return (1);
-		}
+		if (pthread_create(tid, NULL, philosopher, (void *)(&data->philos[i])))
+			return (thread_manager_err("pthread_create error\n", thds));
+		if (pthread_create(ob_tid, NULL, observer, (void *)(&data->philos[i])))
+			return (thread_manager_err("pthread_create error\n", thds));
 		i++;
 	}
 	return (0);

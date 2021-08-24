@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   philosopher.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 16:26:19 by sejpark           #+#    #+#             */
-/*   Updated: 2021/08/23 17:17:13 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/08/24 16:49:10 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
-# include <stdio.h>
-# include <unistd.h>
+#ifndef PHILOSOPHER_H
+# define PHILOSOPHER_H
 # include "structs.h"
 # include "utils.h"
+# include "philo_action.h"
 
-void	pickup_forks(t_philo *philo, int fork_idx);
-void	return_forks(t_philo *philo, int fork_idx);
 void	*philosopher(void *arg);
-void	*oddphilosopher(void *arg);
 
 #endif

@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   thread_manager2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/15 00:12:08 by sejpark           #+#    #+#             */
-/*   Updated: 2021/08/24 16:20:19 by sejpark          ###   ########.fr       */
+/*   Created: 2021/08/24 01:09:31 by sejpark           #+#    #+#             */
+/*   Updated: 2021/08/24 16:52:16 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
-# include "structs.h"
-# include "ft_strlen.h"
-# include <unistd.h>
+#include "../includes/thread_manager.h"
 
-long	cal_time(t_time *start_time);
-int		print_err(char *err_msg);
-void	my_sleep(unsigned int time);
+void	free_threads(t_threads *thds)
+{
+	free(thds->tids);
+	free(thds->observ_tids);
+	free(thds->mutexes);
+	free(thds->permits);
+}
 
-#endif
+int	thread_manager_err(char *err_msg, t_threads *thds)
+{
+	free_threads(thds);
+	return (print_err(err_msg));
+}
