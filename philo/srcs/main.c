@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 16:24:07 by sejpark           #+#    #+#             */
-/*   Updated: 2021/08/24 22:15:46 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/08/25 19:59:49 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	set_opt_data(int argc, char **argv, t_options *opts)
 {
 	if (argc < 5 || argc > 6)
 		return (print_err("invalid parameters\n"));
-	opts->num_philo = ft_atoui(argv[1]);
+	opts->num_philo = ft_atoi(argv[1]);
 	if (opts->num_philo == 0)
 		return (print_err("invalid parameters\n"));
 	opts->time_die = ft_atoui(argv[2]) * 1000;
@@ -32,7 +32,7 @@ int	set_opt_data(int argc, char **argv, t_options *opts)
 	opts->finish = 0;
 	if (argc == 6)
 	{
-		opts->num_each_philo_eat = ft_atoui(argv[5]);
+		opts->num_each_philo_eat = ft_atoi(argv[5]);
 		if (opts->num_each_philo_eat == 0)
 			return (print_err("invalid parameters\n"));
 	}

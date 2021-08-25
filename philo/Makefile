@@ -6,12 +6,11 @@
 #    By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/21 14:58:35 by sejpark           #+#    #+#              #
-#    Updated: 2021/08/25 14:32:36 by sejpark          ###   ########.fr        #
+#    Updated: 2021/08/25 20:11:13 by sejpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC				= gcc
-#CC				= gcc -g -fsanitize=address
 RM				= rm -rf
 CFLAGS			= -Wall -Wextra -Werror
 NAME			= philo
