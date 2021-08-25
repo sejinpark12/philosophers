@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 16:24:07 by sejpark           #+#    #+#             */
-/*   Updated: 2021/08/24 17:19:37 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/08/24 22:15:46 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int	set_philos(t_data *data)
 		data->philos[i].thds = &data->thds;
 		data->philos[i].start_time = &data->start_time;
 		data->philos[i].philo_idx = i + 1;
-//		data->philos[i].status = 0;
 		data->philos[i].eating_cnt = 0;
 		i++;
 	}

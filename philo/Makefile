@@ -6,15 +6,15 @@
 #    By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/21 14:58:35 by sejpark           #+#    #+#              #
-#    Updated: 2021/08/24 16:33:48 by sejpark          ###   ########.fr        #
+#    Updated: 2021/08/25 14:32:36 by sejpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-#CC				= gcc
-CC				= gcc -g -fsanitize=address
+CC				= gcc
+#CC				= gcc -g -fsanitize=address
 RM				= rm -rf
 CFLAGS			= -Wall -Wextra -Werror
-NAME			= philo_one
+NAME			= philo
 
 SRC_DIR			= srcs
 SRC				= srcs/main.c srcs/philosopher.c srcs/philo_action.c \

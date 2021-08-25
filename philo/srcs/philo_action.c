@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 16:34:38 by sejpark           #+#    #+#             */
-/*   Updated: 2021/08/24 17:20:09 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/08/24 22:15:23 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	pickup_forks(t_philo *philo, int fork_idx)
 	pthread_mutex_lock(&philo->thds->msg_mutex);
 	if (philo->opts->finish)
 		return (1);
-//	philo->status = 1;
 	printf("%ld %d has taken a fork\n", cal_time(philo->start_time), philo_idx);
 	pthread_mutex_unlock(&philo->thds->msg_mutex);
 	return (0);
@@ -41,7 +40,6 @@ int	eating(t_philo *philo)
 	pthread_mutex_lock(&philo->thds->msg_mutex);
 	if (philo->opts->finish)
 		return (1);
-//	philo->status = 3;
 	printf("%ld %d is eating\n", cal_time(philo->start_time), philo_idx);
 	gettimeofday(&philo->last_eat_time, NULL);
 	if (philo->eating_cnt < philo->opts->num_each_philo_eat)
@@ -78,7 +76,6 @@ int	sleeping(t_philo *philo)
 	pthread_mutex_lock(&philo->thds->msg_mutex);
 	if (philo->opts->finish)
 		return (1);
-//	philo->status = 4;
 	printf("%ld %d is sleeping\n", cal_time(philo->start_time), philo_idx);
 	pthread_mutex_unlock(&philo->thds->msg_mutex);
 	my_sleep(philo->opts->time_sleep);
@@ -94,7 +91,6 @@ int	thinking(t_philo *philo)
 	pthread_mutex_lock(&philo->thds->msg_mutex);
 	if (philo->opts->finish)
 		return (1);
-//	philo->status = 0;
 	printf("%ld %d is thinking\n", cal_time(philo->start_time), philo_idx);
 	pthread_mutex_unlock(&philo->thds->msg_mutex);
 	return (0);
